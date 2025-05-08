@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1e90ff" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <title>Festivals in Rizal</title>
+  <style>
+    /* [Style code remains unchanged] */
+    /* Global Styles */
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    /* CSS Reset */
+    /* Global Styles */
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #caf229, #efe229, #f2c329, #f29429, #f45525);
+      margin: 0;
+      padding: 0;
+      color: #1f2937;
+      overflow-x: hidden;
+    }
+
+    .banner {
+      position: relative;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+      font-size: 2em;
+      font-family: sans-serif;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    .banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('imagesfestival/province of rizal (2).png');
+      background-size: cover;
+      background-position: center;
+      filter: blur(2px);
+      transform: scale(1.1); /* To hide blur edges */
+      z-index: 1;
+    }
+
+    .banner img,
+    .banner .img-source {
+      position: relative;
+      z-index: 2;
+    }
+
+    .img-source {
+      font-size: 0.7em;
+      color: #374151;
+      margin-top: 20px;
+    }
+
+    header {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 12px;
+      margin-top: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: rgb(115, 15, 15);
+    }
+
+    h2 {
+      color: #1d4ed8;
+    }
+
+    figcaption {
+      font-size: 0.85em;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .nav-bar button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: rgb(236, 47, 78);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .nav-bar button:hover {
+      background-color: rgb(200, 37, 77);
+    }
+
+    .nav-bar a {
+      text-decoration: none;
+      color: #1f2937;
+      background-color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #1e90ff;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 80px 20px 20px;
+    }
+
+    section h1 {
+      margin-top: 0;
+      font-size: 2.5em;
+      color: #1d4ed8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    section h2 {
+      margin-top: 0;
+      font-size: 2em;
+      color: #1d4ed8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    }
+    section h3 {
+      margin-top: 0;
+      font-size: 1.5em;
+      color: #1d4ed8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }  
+
+    .festival-section {
+      background-color: #e6f2ff;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 20px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+
+    h1, h2, h3 {
+      text-align: center;
+    }
+
+    .festival-section {
+      background-color: #e6f2ff;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 20px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    .slide {
+      display: none;
+      max-width: 800px;
+      margin: auto;
+      padding: 10px;
+    }
+
+    .active-slide {
+      display: block;
+      animation: fadeIn 0s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .top-button {
+      position: fixed;
+      bottom: 20px;
+      left: 15px;
+      padding: 10px;
+      background-color: rgb(202, 31, 71);
+      color: rgb(0, 0, 0);
+      border-radius: 100%;
+      cursor: pointer;
+      font-size: 1.5em;
+    }
+
+    .activity-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #f45525;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    
+    .activity-images {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .activity-images img {
+      width: 80%;
+      max-width: 400px;
+      margin: 10px;
+      border-radius: 10px;
+    }
+    
+    .activity-images.active {
+      display: block;
+    }
+    
+    video {
+      width: 100%;
+      max-width: 720px;
+      border-radius: 12px;
+      display: block;
+      margin: 20px auto;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 120px;
+      max-width: 300px;
+      margin: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 1500px) {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      h2 {
+        font-size: 1.2em;
+      }
+
+      header img {
+        max-width: 300%;
+      }
+
+      .nav-bar {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .gallery img {
+        width: 100%;
+      }
+
+      .banner img {
+        max-width: 500px;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1e90ff;
+      color: white; 
+
+      .slide {
+        display: none;
+      }
+
+      .active-slide {
+        display: block;
+      }
+
+      .btn-group {
+        text-align: center;
+        margin-top: 15px;
+      }
+
+      .btn-group button {
+        margin: 5px;
+        padding: 10px 15px;
+        background-color: #007acc;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .btn-group button:hover {
+        background-color: #6ec8ff;
+      }
+      ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 10px 0;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    ul li button {
+      padding: 8px 12px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    ul li button:hover {
+      background-color: #005f99;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1e90ff;
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .gallery img {
+        max-width: 100%;
+        height: auto;
+      }
+      .nav-bar {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+/* Enhanced Festival Section Background Styling */
+.festival-section.with-bg {
+  position: relative;
+  background: url('imagesfestival/rizalfestivals-bg.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 60px 20px;
+  color: white;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: background 0.5s ease-in-out;
+}
+
+/* Dim overlay over the background */
+.festival-section .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure content appears above the overlay */
+.festival-section h1,
+.festival-section button,
+.festival-section .festivalList {
+  position: relative;
+  z-index: 1;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Button Styling */
+.festivalList-button {
+  display: block;
+  margin: 20px auto;
+  font-size: 1.2em;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #007acc, #005fa3);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.festivalList-button {
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.festivalList-button:hover {
+  background: linear-gradient(135deg, #008fff, #006bb3);
+  transform: scale(1.05);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#festivals">Festivals</a>
+    <a href="#about">About Rizal</a>
+  </nav>
+
+  <nav>
+    <a href="#intro">Intro</a>
+    <a href="#festival1">Higantes</a>
+    <a href="#festival2">Sumbingtik</a>
+    <a href="#festival3">Maytime</a>
+    <a href="#festival4">Tromba</a>
+    <a href="#festival5">Binalayan</a>
+  </nav>
+
+  <!-- Banner Section -->
+  <div class="banner">
+    <img src="imagesfestival/province of rizal (2).png" alt="Province of Rizal" loading="lazy" />
+    <div class="img-source" style="display: none;">Image source: Official Rizal Website</div>
+  </div>
+  
+  <section id="intro">
+    <h2>Festivals in the Province of Rizal</h2>
+    <p>The Province of Rizal in the Philippines is rich in culture and tradition. One of the best ways to witness this is through its vibrant festivals. Each town and municipality hosts unique celebrations that highlight local history, religious devotion, artistic expression, and community pride. These events draw locals and tourists alike with colorful parades, traditional dances, local delicacies, and a joyful atmosphere.</p>
+    <p>Each festival is a unique celebration of the local culture, history, and community spirit. From colorful parades to traditional dances, these festivals showcase the rich heritage of Rizal Province.</p>
+  </section>
+
+<!-- Toggle Button for Festival List -->
+<section id="festivals" class="festival-section with-bg"> 
+  <div class="overlay"></div> <!-- Overlay for dim effect -->
+  <h1>List of Festivals in the Province of Rizal</h1>
+  <button class="festivalList-button" onclick="toggleFestivalList()" id="toggleFestivalButton" style="display: block; margin: 20px auto; font-size: 1.2em; padding: 10px 20px; border-radius: 8px; background-color: #007acc; color: white; border: none; cursor: pointer;">Show List of Festivals in Rizal</button>
+  <div id="festivalList" class="festivalList" style="display: none; text-align: center;">
+    <h3>Comprehensive List of Festivals in Rizal</h3>  
+    <!-- Festival List Container -->
+    <ul style="display: inline-block; text-align: left; list-style: none; padding: 0;">
+      <li><strong>PAKARADIAN FESTIVAL (ANTIPOLO)</strong></li>
+      <li><strong>HIGANTES FESTIVAL (ANGONO)</strong></li>
+      <li><strong>MAYTIME FESTIVAL (ANTIPOLO)</strong></li>
+      <li><strong>TROMBA FESTIVAL (BARAS)</strong></li>
+      <li><strong>KALUSKOS FESTIVAL (CARDONA)</strong></li>
+      <li><strong>D'D'DLAYLAY FESTIVAL (JALAJALA)</strong></li>
+      <li><strong>PAMITINAN FESTIVAL (RODRIGUEZ)</strong></li>
+      <li><strong>HANE FESTIVAL (TANAY)</strong></li>
+      <li><strong>RODEO FESTIVAL (TANAY)</strong></li>
+      <li><strong>KAKANIN FESTIVAL (BINANGONAN)</strong></li>
+      <li><strong>TAGPOS FESTIVAL (BARAS)</strong></li>
+      <li><strong>BALUARTE FESTIVAL (RODRIGUEZ)</strong></li>
+      <li><strong>BINIRAYAN FESTIVAL (SAN MATEO)</strong></li>
+      <li><strong>SUMBINGTIK FESTIVAL (CAINTA)</strong></li>
+      <li><strong>BINALAYAN FESTIVAL (TERESA)</strong></li>
+      <li><strong>SAPAO FESTIVAL (TANAY)</strong></li>
+      <li><strong>ARUGA FESTIVAL (ANGONO)</strong></li>
+      <li><strong>SALUBONG FESTIVAL (TAYTAY)</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Festival Details Section -->
+<section id="festivalDetails">
+  <div class="festival-info" id="pakaradiaan">
+    <h3>Pakaradiaan Festival – Antipolo</h3>
+    <p>A colorful celebration of Maranao and Islamic culture in Antipolo. Features dances, songs, and traditional attire.</p>
+    <p><strong>Date:</strong> February</p>
+    <p><strong>Location:</strong> Antipolo City, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="kakanin">
+    <h3>Kakanin Festival – Binangonan</h3>
+    <p>A tribute to Binangonan’s famous rice delicacies such as bibingka, kutsinta, and sapin-sapin, promoting local culinary arts.</p>
+    <p><strong>Date:</strong> March</p>
+    <p><strong>Location:</strong> Binangonan, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="tagpos">
+    <h3>Tagpos Festival – Baras</h3>
+    <p>Named after a local legend, the festival celebrates resilience and cultural heritage through dances and parades.</p>
+    <p><strong>Date:</strong> March 19</p>
+    <p><strong>Location:</strong> Baras, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="baluarte">
+    <h3>Baluarte Festival – Rodriguez (Montalban)</h3>
+    <p>Commemorates the founding of Rodriguez with military-inspired parades and historical reenactments.</p>
+    <p><strong>Date:</strong> April</p>
+    <p><strong>Location:</strong> Rodriguez, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="binirayan">
+    <h3>Binirayan Festival – San Mateo</h3>
+    <p>Celebrates San Mateo’s rich past with tribal dances, floats, and art contests showcasing local identity.</p>
+    <p><strong>Date:</strong> Varies annually</p>
+    <p><strong>Location:</strong> San Mateo, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="sumbingtik">
+    <h3>Sumbingtik Festival – Cainta</h3>
+    <p>Named after “suman,” “bibingka,” and “latik,” this festival celebrates Cainta's native delicacies and Christian traditions.</p>
+    <p><strong>Date:</strong> December 1–7</p>
+    <p><strong>Location:</strong> Cainta, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="binalayan">
+    <h3>Binalayan Festival – Teresa</h3>
+    <p>A thanksgiving for nature’s bounty with street dancing, traditional music, and eco-awareness events.</p>
+    <p><strong>Date:</strong> June</p>
+    <p><strong>Location:</strong> Teresa, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="sapao">
+    <h3>Sapao Festival – Tanay</h3>
+    <p>Celebrates the “sapao” (rice harvest) with rituals and performances that highlight Tanay’s farming traditions.</p>
+    <p><strong>Date:</strong> August</p>
+    <p><strong>Location:</strong> Tanay, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="aruga">
+    <h3>Aruga Festival – Angono</h3>
+    <p>A cultural tribute to caregiving and Filipino compassion through street art and musical showcases.</p>
+    <p><strong>Date:</strong> September</p>
+    <p><strong>Location:</strong> Angono, Rizal</p>
+  </div>
+
+  <div class="festival-info" id="salubong">
+    <h3>Salubong Festival – Taytay</h3>
+    <p>Highlights Taytay’s Christian heritage with dawn processions and reenactments of biblical events.</p>
+    <p><strong>Date:</strong> Easter Sunday</p>
+    <p><strong>Location:</strong> Taytay, Rizal</p>
+   
+   </ul>
+  </div>
+</section>
+
+<!-- Styling for Festival Info -->
+<style>
+  .festival-info {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    animation: fadeIn 0.5s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  ul li {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #6cb2eb;
+    color: white;
+    border: none;
+  }
+
+  button:hover {
+    background-color: #3490dc;
+  }
+
+  .street-dance-button {
+    padding: 10px 15px;
+    background-color: #38a169;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .street-dance-button:hover {
+    background-color: #2f855a;
+  }
+
+  .activity-images {
+    padding: 20px;
+    background-color: #f0fdf4;
+    border: 1px solid #c6f6d5;
+    border-radius: 10px;
+    animation: fadeIn 0.4s ease-in-out;
+    margin-top: 10px;
+  }
+
+  dl dt {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  dl dd {
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .parade-button, .street-dance-button {
+    padding: 10px 15px;
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .parade-button:hover {
+    background-color: #2b6cb0;
+  }
+
+  .parade-images, .activity-images {
+    padding: 20px;
+    background-color: #ebf8ff;
+    border: 1px solid #bee3f8;
+    border-radius: 10px;
+    animation: fadeIn 0.4s ease-in-out;
+    margin-top: 10px;
+  }
+
+  dl dt {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  dl dd {
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+
+  img {
+    margin: 10px 0;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+</style>
+
+<!-- Script to Toggle Street Dancing Section -->
+<script>
+  function toggleStreetDance() {
+    const gallery = document.getElementById("streetDanceGallery");
+    const toggleBtn = document.getElementById("streetDanceToggle");
+
+    if (gallery.style.display === "none") {
+      gallery.style.display = "block";
+      toggleBtn.textContent = "Hide Street Dancing Festivals";
+    } else {
+      gallery.style.display = "none";
+      toggleBtn.textContent = "Show Street Dancing Festivals";
+    }
+  }
+</script>
+
+<script>
+  function toggleStreetDance() {
+    const gallery = document.getElementById("streetDanceGallery");
+    const toggleBtn = document.getElementById("streetDanceToggle");
+
+    if (gallery.style.display === "none") {
+      gallery.style.display = "block";
+      toggleBtn.textContent = "Hide Street Dancing Festivals";
+    } else {
+      gallery.style.display = "none";
+      toggleBtn.textContent = "Street Dancing Festivals";
+    }
+  }
+</script>
+
+<!-- Script to Toggle Parade Section -->
+<script>
+  function toggleParade() {
+    const gallery = document.getElementById("ParadeGallery");
+    const toggleBtn = document.getElementById("ParadeToggle");
+
+    if (gallery.style.display === "none") {
+      gallery.style.display = "block";
+      toggleBtn.textContent = "Parade Festivals";
+    } else {
+      gallery.style.display = "none";
+      toggleBtn.textContent = "Parade Festivals";
+    }
+  }
+</script>
+
+<script>  
+  function toggleParades() {
+    const gallery = document.getElementById("paradeGallery");
+    const toggleBtn = document.getElementById("paradeToggle");
+
+    if (gallery.style.display === "none") {
+      gallery.style.display = "block";
+      toggleBtn.textContent = "Parade Festivals";
+    } else {
+      gallery.style.display = "none";
+      toggleBtn.textContent = "Parade Festivals";
+    }
+  }
+</script>
+
+
+<!-- Script to Toggle Festival List and Show Info -->
+<script>
+  function toggleFestivalList() {
+    const festivalList = document.getElementById('festivalList');
+    const button = document.getElementById('toggleFestivalButton');
+    if (festivalList.style.display === 'none') {
+      festivalList.style.display = 'block';
+      button.textContent = 'List of Festivals in Rizal';
+    } else {
+      festivalList.style.display = 'none';
+      button.textContent = 'List of Festivals in Rizal';
+    }
+  }
+
+  function showFestivalInfo(festivalId) {
+    const allFestivals = document.querySelectorAll('.festival-info');
+    allFestivals.forEach(festival => {
+      festival.style.display = 'none';
+    });
+
+    const selected = document.getElementById(festivalId);
+    if (selected) {
+      selected.style.display = 'block';
+      selected.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+
+    <button class="activity-button" onclick="toggleActivities()" id="toggleButton">Show Festival Activities</button>
+    <div id="activityGallery" class="activity-images" style="display: none;">  
+
+      <ul>
+        <li>1. Street dancing competitions in vibrant costumes</li>
+<!-- Street Dance Toggle Button -->
+        <button class="street-dance-button" onclick="toggleStreetDance()" id="streetDanceToggle">Street Dancing Festivals</button>
+      </ul>
+<!-- Street Dance Activity Section -->
+    <div id="streetDanceGallery" class="activity-images" style="display: none;">
+      <h3>Festivals with Street Dancing</h3>
+      <p>Many Rizal festivals feature lively street dances that showcase cultural pride and community spirit. Here are some examples:</p>
+    <dl>
+       <dt><strong>SumBingTik Festival (Cainta)</strong></dt>
+       <dd>Features the <em>Caindakan sa Kalsada</em> street dance — a parade of color, music, and devotion.</dd>
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 1" width="100%">
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 2" width="100%">
+
+       <dt><strong>D'Dalaylay Festival (Jalajala)</strong></dt>
+       <dd>Celebrates the feast of St. Michael the Archangel with artistic street dancing displays.</dd>
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 1" width="100%">
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 2" width="100%"> 
+    
+       <dt><strong>Binalayan Festival (Binangonan)</strong></dt>
+       <dd>Includes the <em>Gewang-gewang</em> dance performed while carrying the image of St. Ursula.</dd>
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 1" width="100%">
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 2" width="100%">
+
+       <dt><strong>Buhayani Festival (Calamba)</strong></dt>
+       <dd>Hosts the <em>Buhayani Sayaw Indak</em>, a vibrant street dancing competition.</dd>
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 1" width="100%">
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 2" width="100%">
+
+       <dt><strong>Higantes Festival (Angono)</strong></dt>
+       <dd>Renowned for giant papier-mâché puppets and energetic street dancing.</dd>
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 1" width="100%">
+       <img src="imagesfestival/streetdance.jpg" alt="Street dancing 2" width="100%">
+  
+      </dl>
+</div>
+
+
+      <ul>
+        <li>2. Parades with giant papier-mâché figures and floats</li>
+<!-- Parade Toggle Button -->
+        <button class="parade-button" onclick="toggleParades()" id="paradeToggle">Parade Festivals</button>
+      </ul>        
+<!-- Parade Activity Section -->
+    <div id="paradeGallery" class="parade-images" style="display: none;">
+      <h3>Festivals Featuring Parades and Giant Figures</h3>
+      <p>These festivals highlight colorful floats and giant papier-mâché figures, parading through the streets in grand celebration:</p>
+    <dl>
+       <dt><strong>Higantes Festival (Angono)</strong></dt>
+       <dd>Famous for its vibrant parade of massive papier-mâché “Higantes” representing local characters.</dd>
+       <img src="imagesfestival/tromba (2).jpg" alt="Higantes Parade 1" width="100%">
+       <img src="imagesfestival/tromba (2).jpg" alt="Higantes Parade 2" width="100%">
+        
+       <dt><strong>Binalayan Festival (Binangonan)</strong></dt>
+       <dd>Floats and religious processions accompany dance and music along the town streets.</dd>
+       <img src="imagesfestival/parade3.jpg" alt="Binalayan Parade 1" width="100%">
+       <img src="imagesfestival/tromba (2).jpg" alt="Higantes Parade 2" width="100%">
+
+       <dt><strong>Buhayani Festival (Calamba)</strong></dt>
+       <dd>Colorful floats parade while honoring national hero Dr. Jose Rizal’s legacy.</dd>
+       <img src="imagesfestival/parade4.jpg" alt="Buhayani Parade 1" width="100%">
+       <img src="imagesfestival/tromba (2).jpg" alt="Higantes Parade 2" width="100%">
+
+      </dl>
+</div>
+        
+        <li>3. Music and dance performances</li>
+           <img src="imagesfestival/musicdance.jpg" alt="Music and dance">
+        <li>4. Fireworks displays and spectacular shows</li>
+           <img src="imagesfestival/fireworks.jpg" alt="Fireworks">
+        <li>5. Local food stalls and vendors</li>
+           <img src="imagesfestival/foodstalls.jpg" alt="Food stalls">
+        <li>6. Traditional clothing and costume displays</li>
+           <img src="imagesfestival/traditionalclothing.jpg" alt="Traditional clothing">
+        <li>7. Local handicrafts and souvenirs</li>
+           <img src="imagesfestival/localhandicrafts.jpg" alt="Local handicrafts">
+        <li>8. Religious processions honoring patron saints</li>
+           <img src="imagesfestival/religiousprocession.jpg" alt="Religious procession">
+        <li>9. Trade fairs and local food exhibitions</li>
+           <img src="imagesfestival/tradefair.jpg" alt="Trade fair">
+        <li>10. Art exhibits showcasing local artists and craftsmen</li>
+           <img src="imagesfestival/artexhibit.jpg" alt="Art exhibit">
+        <li>11. Sports events and competitions</li>
+           <img src="imagesfestival/sportsevent.jpg" alt="Sports event">
+      </ul>
+    </div>
+  
+    <p>Whether you're a local or a visitor, joining these celebrations is a meaningful way to experience Filipino traditions, creativity, and community spirit.</p>
+  </section>
+  
+  <script>
+    function toggleActivities() {
+      const gallery = document.getElementById('activityGallery');
+      const button = document.getElementById('toggleButton');
+  
+      if (gallery.style.display === 'none') {
+        gallery.style.display = 'block';
+        button.textContent = 'Hide Festival Activities';
+      } else {
+        gallery.style.display = 'none';
+        button.textContent = 'Show Festival Activities';
+      }
+    }
+  
+    function showFestivalInfo(festivalId) {
+      // Example: Navigate to a specific festival section (add your logic here)
+      if (festivalId) {
+        document.getElementById(festivalId).scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('More information coming soon!');
+      }
+    }
+  </script>
+<section id="festivalInfo" class="festival-info">
+    <h2>More Information</h2>
+    <p>For more information about festivals in Rizal, visit the official <a href="https://www.rizal.gov.ph/" target="_blank">Rizal Government Website</a>.</p>
+  </section></h2>  
+
+    </div>
+    </ul>
+  </section>
+
+    <style>
+      ul {
+      list-style-type: none;
+      padding: 0;
+      }
+      ul li {
+      margin: 10px 0;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      ul li button {
+      padding: 8px 12px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      }
+      ul li button:hover {
+      background-color: #005f99;
+      }
+    </style>
+    </section>
+
+    <script>
+      function toggleActivities() {
+        const gallery = document.getElementById('activityGallery');
+        gallery.style.display = gallery.style.display === 'none' ? 'block' : 'none';
+      }
+    </script>  
+
+    <script>
+    function showFestivalInfo(festivalId) {
+      const target = document.getElementById(festivalId);
+      if (target) {
+      window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+      }
+    }
+    </script>
+
+  <!-- Festival Sections -->
+  <section id="festival1" class="festival-section">
+    <h2>1. Higantes Festival</h2>
+    <div class="slide active-slide" id="slide1">
+      <video width="100%" controls>
+        <source src="videos/higantes_festival.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p>Celebrate the giant puppets of Angono! A vibrant festival full of color and history.</p>
+    </div>
+
+    <div class="slide" id="slide2">
+      <div class="gallery">
+        <img src="imagesfestival/IMG_3541.jpg" alt="Higantes Image 1">
+        <img src="imagesfestival/IMG_3550.jpg" alt="Higantes Image 2">
+      </div>
+    </div>
+
+    <div class="slide" id="slide3">
+      <div id="countdownHigantes"></div>
+      <p>📅 Date: November 22</p>
+      <p>📍 Location: Angono, Rizal</p>
+      <p>💡 Did You Know? The giants symbolize the hacienderos mocked by Filipino farmers.</p>
+    </div>
+    
+    <div class="btn-group">
+      <button onclick="showSlide(1)">Intro</button>
+      <button onclick="showSlide(2)">Gallery</button>
+      <button onclick="showSlide(3)">Trivia</button>
+    </div>
+  </section>
+
+  <section id="festival2" class="festival-section">
+  <h2>2. Sumbingtik Festival</h2>
+
+  <!-- Facebook SDK (include only once per page, ideally after <body>) -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v22.0"></script>
+
+  <div class="slide active-slide" id="slide4">
+    <!-- Local MP4 video -->
+    <video width="100%" controls>
+      <source src="videos/sumbingtik_festival.mp4" type="video/mp4">
+    </video>
+
+    <p>The Sumbingtik Festival is a blend of religious devotion and Cainta’s local pride.</p>
+  </div>
+
+  <div class="slide" id="slide5">
+    <div class="gallery">
+      <img src="imagesfestival/sumbingtik.avif" alt="Sumbingtik Image 1">
+      <img src="imagesfestival/Sumbingtik.jpg" alt="Sumbingtik Image 2">
+      <img src="imagesfestival/Sumbingtik1.jpg" alt="Sumbingtik Image 3">
+      <img src="imagesfestival/Sumbingtik3.jpg" alt="Sumbingtik Image 4">
+    </div>
+  </div>
+
+  <div class="slide" id="slide6">
+    <div id="countdownSumbingtik"></div>
+    <p>📅 Date: May 15</p>
+    <p>📍 Location: Cainta, Rizal</p>
+    <p>💡 Did You Know? Sumbingtik combines “San Roque” and “Kasayahan” into a one-week celebration.</p>
+  </div>
+
+  <div class="btn-group">
+    <button onclick="showSlide(4)">Intro</button>
+    <button onclick="showSlide(5)">Gallery</button>
+    <button onclick="showSlide(6)">Trivia</button>
+  </div>
+</section>
+
+  <section id="festival3" class="festival-section">
+    <h2>3. Maytime Festival</h2>
+    <div class="slide active-slide" id="slide7">
+      <video width="100%" controls>
+        <source src="videos/maytime_festival.mp4" type="video/mp4">
+      </video>
+      <p>The Antipolo Maytime Festival honors Our Lady of Peace and Good Voyage.</p>
+    </div>
+    <div class="slide" id="slide8">
+      <div class="gallery">
+        <img src="imagesfestival/ANG TIPULO 2 .jpg" alt="Maytime Image 1">
+        <img src="imagesfestival/ANG TIPULO 4 .jpg" alt="Maytime Image 2">
+      </div>
+    </div>
+    <div class="slide" id="slide9">
+      <div id="countdownMaytime"></div>
+      <p>📅 Date: May 1</p>
+      <p>📍 Location: Antipolo City</p>
+      <p>💡 Did You Know? It attracts millions of pilgrims every year.</p>
+    </div>
+    <div class="btn-group">
+      <button onclick="showSlide(7)">Intro</button>
+      <button onclick="showSlide(8)">Gallery</button>
+      <button onclick="showSlide(9)">Trivia</button>
+    </div>
+  </section>
+
+  <section id="festival4" class="festival-section">
+    <h2>4. San Ildefonso de Toledo Festival (Tromba Festival)</h2>
+    <div class="slide active-slide" id="slide10">
+      <video width="100%" controls>
+        <source src="videos/tromba_festival.mp4" type="video/mp4">
+      </video>
+      <p>This festival in Tanay celebrates the town’s patron saint with river processions.</p>
+    </div>
+    <div class="slide" id="slide11">
+      <div class="gallery">
+        <img src="imagesfestival/tromba (1).jpg" alt="Tromba Image 1">
+        <img src="imagesfestival/tromba (2).jpg" alt="Tromba Image 2">
+        <img src="imagesfestival/tromba (3).jpg" alt="Tromba Image 3">
+      </div>
+    </div>
+    <div class="slide" id="slide12">
+      <div id="countdownTromba"></div>
+      <p>📅 Date: March 19</p>
+      <p>📍 Location: Tanay, Rizal</p>
+      <p>💡 Did You Know? Devotees float religious images down the river.</p>
+    </div>
+    <div class="btn-group">
+      <button onclick="showSlide(10)">Intro</button>
+      <button onclick="showSlide(11)">Gallery</button>
+      <button onclick="showSlide(12)">Trivia</button>
+    </div>
+  </section>
+
+  <section id="festival5" class="festival-section">
+    <h2>5. Binalayan Festival</h2>
+    <div class="slide active-slide" id="slide13">
+      <video width="100%" controls>
+        <source src="videos/binalayan_festival.mp4" type="video/mp4">
+      </video>
+      <p>A vibrant thanksgiving festival in Pililla featuring parades and cultural dances.</p>
+    </div>
+    <div class="slide" id="slide14">
+      <div class="gallery">
+        <img src="imagesfestival/BINALAYAN FESTIVAL 2 .jpg" alt="Binalayan Image 1">
+        <img src="imagesfestival/BINALAYAN FESTIVAL 4 .jpg" alt="Binalayan Image 2">
+      </div>
+    </div>
+    <div class="slide" id="slide15">
+      <div id="countdownBinalayan"></div>
+      <p>📅 Date: August 16</p>
+      <p>📍 Location: Pililla, Rizal</p>
+      <p>💡 Did You Know? "Binalayan" refers to harvesting rituals by early settlers.</p>
+    </div>
+    <div class="btn-group">
+      <button onclick="showSlide(13)">Intro</button>
+      <button onclick="showSlide(14)">Gallery</button>
+      <button onclick="showSlide(15)">Trivia</button>
+    </div>
+  </section>
+
+  <section class="festival-section">
+  <section style="background:#fff3cd;padding:20px;text-align:center;">
+    <h2>🎪 Know a Festival We Should Feature?</h2>
+    <p>Send us the details and we'll consider it for the site!</p>
+    <p>Fill out the form below:</p>
+    <form action="https://formsubmit.co/your-email@example.com" method="POST" style="max-width:600px;margin:auto;">
+      <label for="festivalName">Festival Name:</label><br>
+      <input type="text" id="festivalName" name="festivalName" required style="width:100%;padding:10px;margin:10px 0;">
+      <label for="festivalLocation">Location:</label><br>
+      <input type="text" id="festivalLocation" name="festivalLocation" placeholder="Location (e.g. Binangonan, Rizal)" required style="width:100%;padding:10px;margin:10px 0;">
+      <label for="festivalDate">Date:</label><br>
+      <input type="date" id="festivalDate" name="festivalDate" required style="width:100%;padding:10px;margin:10px 0;">
+      <label for="festivalDescription">Description:</label><br>
+      <input type="text" id="festivalDescription" name="festivalDescription" placeholder="A brief description of the festival" required style="width:100%;padding:10px;margin:10px 0;">
+      <input type="submit" value="Submit" style="padding:10px 10px;background:#ec174e;color:rgb(33, 10, 147);border:none;border-radius:10px;font-weight:bold;">
+    </form>
+  </section>
+
+  <footer>&copy; 2025 Festivals of Rizal. All rights reserved.</footer>
+  <button onclick="scrollToTop()" class="top-button">🔝</button>
+
+  <script>
+    function showSlide(id) {
+      const slides = document.querySelectorAll(".slide");
+      slides.forEach(slide => slide.classList.remove("active-slide"));
+      const target = document.getElementById("slide" + id);
+      if (target) {
+        target.classList.add("active-slide");
+        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function startCountdown(id, dateStr) {
+      const el = document.getElementById(id);
+      const eventDate = new Date(dateStr).getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = eventDate - now;
+        if (diff <= 0) {
+          el.innerHTML = "🎉 It's festival time!";
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        el.innerHTML = `⏳ ${days}d ${hours}h ${mins}m ${secs}s`;
+        setTimeout(update, 1000);
+      }
+
+      update();
+    }
+
+    startCountdown("countdownHigantes", "2025-11-22");
+    startCountdown("countdownSumbingtik", "2025-05-15");
+    startCountdown("countdownMaytime", "2025-05-01");
+    startCountdown("countdownTromba", "2025-03-19");
+    startCountdown("countdownBinalayan", "2025-08-16");
+  </script>
+
+</body>
+</html>
